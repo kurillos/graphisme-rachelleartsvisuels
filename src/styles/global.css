@@ -69,6 +69,77 @@ a {
   border-radius: 2px;
 }
 
+/* ---------- Navigation (même comportement que .filters button) ---------- */
+.site-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-nav .logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-purple);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  background: none;
+  border: none;
+  box-shadow: none;
+  text-decoration: none;
+  padding: 5px 0;
+  cursor: pointer;
+  font-family: var(--font-body);
+  color: var(--color-purple);
+  font-size: 1.1rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-purple);
+  transform: translateX(-50%);
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+  color: var(--color-cyan);
+}
+.nav-links a:hover::after,
+.nav-links a[aria-current="page"]::after {
+  width: 100%;
+}
+
+/* Lien secondaire ("← Site photo") : pas de soulignement animé, discret */
+.nav-links .nav-secondary {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+.nav-links .nav-secondary::after {
+  display: none;
+}
+.nav-links .nav-secondary:hover {
+  color: var(--color-purple);
+}
+
 /* ---------- Filtres (repris de .btn-filter-custom) ---------- */
 .filters {
   display: flex;
