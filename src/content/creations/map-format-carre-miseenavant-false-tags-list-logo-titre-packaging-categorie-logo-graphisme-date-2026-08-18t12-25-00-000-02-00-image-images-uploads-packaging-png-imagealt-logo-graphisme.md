@@ -6,6 +6,5 @@ image: /images/uploads/packaging.png
 imageAlt: Logo & Graphisme
 format: carre
 miseEnAvant: false
-tags:
-  - logo
+tags: []
 ---
