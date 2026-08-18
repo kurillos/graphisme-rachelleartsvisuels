@@ -1,0 +1,173 @@
+/*
+  ============================================================
+  IDENTITÉ GRAPHIQUE — reprise depuis rachelle-arts-visuels
+  (tailwind.config.js + resources/sass/app.scss du repo Laravel)
+  ============================================================
+*/
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1a1c20;      /* $dark */
+  --color-purple: #AA11DD;    /* $purple-main / primary */
+  --color-cyan: #13D4F5;      /* $cyan-main / secondary */
+  --color-muted: #6b6b6b;
+  --color-border: rgba(170, 17, 221, 0.15);
+
+  --font-heading: 'Charmonman', cursive;  /* titres, boutons */
+  --font-body: 'Charm', sans-serif;       /* texte courant */
+
+  --gap: 1.25rem;
+  --radius-pill: 50px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Charmonman:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Titre de section, dans l'esprit ".admin-title-cursive" du site principal */
+.page-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-purple);
+  position: relative;
+  display: inline-block;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+}
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-purple);
+  border-radius: 2px;
+}
+
+/* ---------- Filtres (repris de .btn-filter-custom) ---------- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 2rem 0;
+}
+
+.filters button {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 5px 0;
+  cursor: pointer;
+  font-family: var(--font-body);
+  color: var(--color-purple);
+  font-size: 1.2rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.filters button::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-purple);
+  transform: translateX(-50%);
+  transition: width 0.3s ease-in-out;
+}
+
+.filters button:hover,
+.filters button[data-active="true"] {
+  color: var(--color-cyan);
+}
+.filters button:hover::after,
+.filters button[data-active="true"]::after {
+  width: 100%;
+}
+
+/* ---------- Galerie Masonry (reprend .masonry-container / .masonry-brick) ---------- */
+.masonry {
+  columns: 3 300px;
+  column-gap: 20px;
+}
+
+.masonry-item {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+  break-inside: avoid;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.masonry-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--color-purple);
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.masonry-item:hover img {
+  transform: translateY(-5px);
+}
+
+.masonry-item[data-hidden="true"] {
+  display: none;
+}
+
+.masonry-item .legend {
+  padding: 0.6rem 0.2rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.masonry-item .legend .titre {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* ---------- Bouton pilule dégradé, repris du site principal ---------- */
+.btn-pill {
+  display: inline-block;
+  padding: 12px 30px;
+  background: linear-gradient(90deg, var(--color-cyan) 0%, var(--color-purple) 100%);
+  color: white;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(170, 17, 221, 0.3);
+}
+.btn-pill:hover {
+  transform: translateY(-3px);
+}

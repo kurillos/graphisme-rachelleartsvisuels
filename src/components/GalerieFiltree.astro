@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+const creations = (await getCollection('creations')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+// Libellés FR pour les catégories (à ajuster librement)
+const labels: Record<string, string> = {
+  'identite-visuelle': 'Identité visuelle',
+  'logo': 'Logo',
+  'affiche': 'Affiche',
+  'packaging': 'Packaging',
+  'illustration': 'Illustration',
+  'web': 'Web',
+};
+
+const categories = [...new Set(creations.map((c) => c.data.categorie))];
+---
+
+<div x-data={`{ filtre: 'tous' }`}>
+  <div class="filters">
+    <button
+      type="button"
+      x-on:click="filtre = 'tous'"
+      x-bind:data-active="filtre === 'tous'"
+    >
+      Tout
+    </button>
+    {categories.map((cat) => (
+      <button
+        type="button"
+        x-on:click={`filtre = '${cat}'`}
+        x-bind:data-active={`filtre === '${cat}'`}
+      >
+        {labels[cat] ?? cat}
+      </button>
+    ))}
+  </div>
+
+  <div class="masonry">
+    {creations.map((item) => (
+      <figure
+        class="masonry-item"
+        x-bind:data-hidden={`filtre !== 'tous' && filtre !== '${item.data.categorie}'`}
+      >
+        <Image
+          src={item.data.image}
+          alt={item.data.imageAlt}
+          widths={[400, 800]}
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          loading="lazy"
+        />
+        <figcaption class="legend">
+          <span class="titre">{item.data.titre}</span>
+          {item.data.client && <span> — {item.data.client}</span>}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</div>
