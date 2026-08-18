@@ -1,19 +1,13 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
 const creations = (await getCollection('creations')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
-// Libellés FR pour les catégories (à ajuster librement)
-const labels: Record<string, string> = {
-  'faire-part': 'Faire-part',
-  'logo-graphisme': 'Logo & graphisme',
-  'mise-en-page': 'Mise en page',
-  'site-web': 'Site web',
-};
-
+// Catégories générées automatiquement à partir des créations publiées —
+// ajouter une nouvelle catégorie (ici ou via Decap CMS) crée un nouveau
+// filtre sans toucher au code.
 const categories = [...new Set(creations.map((c) => c.data.categorie))];
 ---
 
@@ -29,10 +23,10 @@ const categories = [...new Set(creations.map((c) => c.data.categorie))];
     {categories.map((cat) => (
       <button
         type="button"
-        x-on:click={`filtre = '${cat}'`}
-        x-bind:data-active={`filtre === '${cat}'`}
+        x-on:click={`filtre = ${JSON.stringify(cat)}`}
+        x-bind:data-active={`filtre === ${JSON.stringify(cat)}`}
       >
-        {labels[cat] ?? cat}
+        {cat}
       </button>
     ))}
   </div>
@@ -41,13 +35,11 @@ const categories = [...new Set(creations.map((c) => c.data.categorie))];
     {creations.map((item) => (
       <figure
         class="masonry-item"
-        x-bind:data-hidden={`filtre !== 'tous' && filtre !== '${item.data.categorie}'`}
+        x-bind:data-hidden={`filtre !== 'tous' && filtre !== ${JSON.stringify(item.data.categorie)}`}
       >
-        <Image
+        <img
           src={item.data.image}
           alt={item.data.imageAlt}
-          widths={[400, 800]}
-          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           loading="lazy"
         />
         <figcaption class="legend">

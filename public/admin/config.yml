@@ -1,0 +1,37 @@
+backend:
+  name: github
+  repo: kurillos/graphisme-rachelleartsvisuels   # à ajuster si le nom du repo change
+  branch: main
+  auth_endpoint: api/auth
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "creations"
+    label: "Créations graphisme"
+    label_singular: "Création"
+    folder: "src/content/creations"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - label: "Catégorie / filtre"
+        name: "categorie"
+        widget: "string"
+        hint: >
+          Tape le nom d'un filtre existant (Faire-part, Logo & graphisme,
+          Mise en page, Site web) ou une toute nouvelle catégorie — elle
+          apparaîtra automatiquement comme filtre sur le site, sans aucune
+          intervention technique.
+      - { label: "Client", name: "client", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Texte alternatif de l'image", name: "imageAlt", widget: "string" }
+      - label: "Format"
+        name: "format"
+        widget: "select"
+        options: ["portrait", "paysage", "carre"]
+        default: "paysage"
+      - { label: "Mettre en avant", name: "miseEnAvant", widget: "boolean", default: false }
+      - { label: "Description (optionnelle)", name: "body", widget: "markdown", required: false }

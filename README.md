@@ -47,6 +47,44 @@ variables ici pour rester synchronisé.
    à remplacer par le vrai logo si besoin).
 3. Remplacer les deux fiches d'exemple par les vraies créations.
 
+## Back-office Decap CMS (ajouter du contenu sans toucher au code)
+
+Une interface d'administration est disponible sur `/admin` une fois
+configurée. Elle permet d'ajouter une création (titre, catégorie, image,
+etc.) directement depuis un formulaire — chaque publication crée un commit
+sur le repo GitHub, donc **le site reste 100% statique**, pas de vraie base
+de données à gérer.
+
+**Point important sur les catégories/filtres** : le champ "Catégorie" est un
+champ texte libre, pas une liste figée. Les filtres affichés sur le site
+sont générés automatiquement à partir des catégories réellement utilisées
+dans les créations publiées. Donc pour créer un nouveau filtre, il suffit de
+taper un nouveau nom de catégorie dans Decap CMS — aucune intervention
+technique nécessaire.
+
+### Mise en place (une seule fois)
+
+1. **Créer une GitHub OAuth App** : sur GitHub → Settings → Developer
+   settings → OAuth Apps → New OAuth App.
+   - Homepage URL : l'URL de ton site (ex. `https://graphisme-rachelleartsvisuels.vercel.app`)
+   - Authorization callback URL : `<ton-url>/api/callback`
+   - Récupère le **Client ID** et génère un **Client Secret**.
+
+2. **Ajouter les variables d'environnement dans Vercel** (Project Settings →
+   Environment Variables) :
+   - `OAUTH_CLIENT_ID`
+   - `OAUTH_CLIENT_SECRET`
+
+3. **Vérifier `public/admin/config.yml`** : le champ `repo:` doit pointer
+   vers `kurillos/graphisme-rachelleartsvisuels` (ou le nom exact du repo).
+
+4. Redéployer, puis se rendre sur `<ton-url>/admin`, cliquer sur "Login with
+   GitHub" — le compte GitHub utilisé doit avoir accès en écriture au repo.
+
+Les fonctions `api/auth.js` et `api/callback.js` gèrent l'échange
+d'autorisation avec GitHub (Vercel les déploie automatiquement comme
+fonctions serverless, aucune config supplémentaire nécessaire).
+
 ## Déploiement (O2switch)
 
 ```bash
