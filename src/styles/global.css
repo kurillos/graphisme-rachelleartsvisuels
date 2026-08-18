@@ -1,9 +1,5 @@
-/*
-  ============================================================
-  IDENTITÉ GRAPHIQUE — reprise depuis rachelle-arts-visuels
-  (tailwind.config.js + resources/sass/app.scss du repo Laravel)
-  ============================================================
-*/
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Charmonman:wght@400;700&display=swap');
+
 :root {
   --color-bg: #ffffff;
   --color-text: #1a1c20;      /* $dark */
