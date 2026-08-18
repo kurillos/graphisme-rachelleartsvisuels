@@ -8,12 +8,10 @@ const creations = (await getCollection('creations')).sort(
 
 // Libellés FR pour les catégories (à ajuster librement)
 const labels: Record<string, string> = {
-  'identite-visuelle': 'Identité visuelle',
-  'logo': 'Logo',
-  'affiche': 'Affiche',
-  'packaging': 'Packaging',
-  'illustration': 'Illustration',
-  'web': 'Web',
+  'faire-part': 'Faire-part',
+  'logo-graphisme': 'Logo & graphisme',
+  'mise-en-page': 'Mise en page',
+  'site-web': 'Site web',
 };
 
 const categories = [...new Set(creations.map((c) => c.data.categorie))];

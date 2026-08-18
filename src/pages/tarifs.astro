@@ -2,64 +2,78 @@
 import Layout from '../layouts/Layout.astro';
 
 // Structure de base pour les tarifs / packs graphisme.
-// Remplace les valeurs et libellés par les tiens.
+// Remplace les valeurs, libellés et inclusions par les tiens.
 const formules = [
   {
+    nom: 'Pack Essentiel',
+    prix: '150 €',
+    duree: 'Faire-part / support simple',
+    inclus: [
+      '1 support (faire-part, flyer...)',
+      '2 propositions',
+      '1 aller-retour de révisions',
+      'Fichier prêt à imprimer',
+    ],
+    miseEnAvant: false,
+  },
+  {
     nom: 'Identité visuelle',
-    prix: 'à partir de 450 €',
-    description: 'Logo, palette de couleurs, typographies, déclinaisons de base.',
+    prix: '450 €',
+    duree: 'À partir de',
     inclus: [
       'Logo (2 propositions + révisions)',
-      'Charte graphique courte (couleurs, polices)',
+      'Palette de couleurs & typographies',
+      'Déclinaisons de base (carte de visite, réseaux sociaux)',
       'Fichiers sources + exports web/print',
+      'Contrat avec droits d’utilisation',
     ],
+    miseEnAvant: true,
   },
   {
-    nom: 'Pack Communication',
-    prix: 'à partir de 250 €',
-    description: 'Affiches, flyers, supports ponctuels.',
+    nom: 'Suivi graphique',
+    prix: 'Sur devis',
+    duree: 'Formule maintenance',
     inclus: [
-      'Jusqu’à 3 supports',
-      '1 aller-retour de révisions par support',
-      'Formats prêts à imprimer',
-    ],
-  },
-  {
-    nom: 'Maintenance graphique',
-    prix: 'sur devis',
-    description: 'Suivi régulier pour une marque déjà lancée : déclinaisons, mises à jour, nouveaux supports au fil de l’année.',
-    inclus: [
-      'Nombre d’heures ou de supports par mois à définir',
+      'Nombre de supports/heures par mois à définir',
+      'Déclinaisons et mises à jour au fil de l’année',
       'Priorité sur les demandes',
       'Facturation mensuelle ou trimestrielle',
     ],
+    miseEnAvant: false,
   },
 ];
 ---
-<Layout title="Tarifs — Graphisme | Rachelle Arts Visuels" description="Tarifs et formules graphisme : identité visuelle, supports de communication, maintenance graphique.">
+<Layout title="Tarifs — Graphisme | Rachelle Arts Visuels" description="Tarifs et formules graphisme : identité visuelle, supports de communication, suivi graphique régulier.">
   <section class="container">
     <h1 class="page-title">Tarifs & formules</h1>
     <p style="max-width: 60ch; color: var(--color-muted);">
       Quelques repères pour se projeter — chaque projet reste discuté et
-      ajusté selon tes besoins. N’hésite pas à me contacter pour un devis
-      précis.
+      ajusté selon tes besoins.
     </p>
 
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+    <div class="pricing-grid">
       {formules.map((f) => (
-        <div style="border: 2px solid var(--color-border); border-radius: 20px; padding: 1.75rem;">
-          <h2 style="color: var(--color-purple); font-size: 1.5rem; margin-bottom: 0.25rem;">{f.nom}</h2>
-          <p style="font-weight: 700; font-size: 1.4rem; margin: 0 0 0.75rem;">{f.prix}</p>
-          <p style="color: var(--color-muted); margin-bottom: 1rem;">{f.description}</p>
-          <ul style="padding-left: 1.1rem; color: var(--color-text);">
-            {f.inclus.map((item) => <li style="margin-bottom: 0.4rem;">{item}</li>)}
+        <div class:list={['card-pricing', { 'card-pricing-featured': f.miseEnAvant }]}>
+          {f.miseEnAvant && <span class="pricing-badge">★ Plus demandée</span>}
+          <h2 class="pricing-name">{f.nom}</h2>
+          <p class="pricing-price">{f.prix}</p>
+          <p class="pricing-tagline">{f.duree}</p>
+          <ul class="pricing-features">
+            {f.inclus.map((item) => (
+              <li>
+                <span class="pricing-check">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
           </ul>
+          <a href="/contact" class="btn-devis">Demander un devis</a>
         </div>
       ))}
     </div>
 
-    <div style="text-align:center; margin: 3rem 0;">
-      <a href="/contact" class="btn-pill">Demander un devis</a>
-    </div>
+    <p style="text-align:center; color: var(--color-muted); margin: 2.5rem 0;">
+      Un besoin particulier ou un projet sur-mesure hors de ces formules ?
+      <a href="/contact" style="color: var(--color-purple); font-weight:bold;">Contactez-moi</a>, on en discute ensemble.
+    </p>
   </section>
 </Layout>

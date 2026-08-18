@@ -171,3 +171,218 @@ a {
 .btn-pill:hover {
   transform: translateY(-3px);
 }
+
+/* ============================================================
+   PAGE TARIFS — cartes façon site principal (rachelleartsvisuels.fr/tarifs)
+   ============================================================ */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+  margin-top: 2.5rem;
+}
+
+.card-pricing {
+  position: relative;
+  background: var(--color-bg);
+  border: 2px solid rgba(170, 17, 221, 0.15);
+  border-radius: 20px;
+  padding: 35px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-pricing:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(170, 17, 221, 0.15);
+  border-color: rgba(170, 17, 221, 0.4);
+}
+
+.card-pricing-featured {
+  border-color: var(--color-purple);
+  background: linear-gradient(180deg, rgba(170, 17, 221, 0.04) 0%, var(--color-bg) 25%);
+  box-shadow: 0 10px 25px rgba(170, 17, 221, 0.12);
+}
+
+@media (min-width: 992px) {
+  .card-pricing-featured {
+    transform: scale(1.04);
+  }
+  .card-pricing-featured:hover {
+    transform: scale(1.04) translateY(-6px);
+  }
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, var(--color-purple) 0%, var(--color-cyan) 100%);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 6px 18px;
+  border-radius: 50px;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(170, 17, 221, 0.35);
+}
+
+.pricing-name {
+  font-family: var(--font-heading);
+  font-size: 1.9rem;
+  color: var(--color-text);
+  margin: 0 0 10px;
+}
+
+.pricing-price {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: var(--color-purple);
+  line-height: 1;
+  margin: 0;
+}
+
+.pricing-tagline {
+  color: var(--color-cyan);
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 8px 0 20px;
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.75rem;
+  flex: 1;
+}
+
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(26, 28, 32, 0.08);
+  font-size: 0.95rem;
+  color: rgba(26, 28, 32, 0.85);
+}
+
+.pricing-features li:last-child {
+  border-bottom: none;
+}
+
+.pricing-check {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-cyan);
+  color: #fff;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.btn-devis {
+  display: inline-block;
+  text-align: center;
+  background: var(--color-purple);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 25px;
+  font-family: var(--font-body);
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.btn-devis:hover {
+  background: var(--color-cyan);
+}
+
+/* ============================================================
+   PAGE CONTACT — reprend la section sombre du site principal
+   ============================================================ */
+.contact-dark-theme {
+  background-color: var(--color-text); /* $dark */
+  color: #fff;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  margin: 2rem 0;
+}
+
+.contact-dark-theme .page-title {
+  color: var(--color-purple);
+}
+
+.contact-dark-theme .contact-intro {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.contact-dark-theme label {
+  display: block;
+  font-family: var(--font-heading);
+  color: var(--color-cyan);
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.5px;
+}
+
+.contact-dark-theme .form-control-custom {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+  color: #fff;
+  width: 100%;
+  padding: 10px 5px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.contact-dark-theme .form-control-custom:focus {
+  outline: none;
+  border-bottom-color: var(--color-cyan);
+  background: rgba(19, 212, 245, 0.05);
+}
+
+.contact-dark-theme select.form-control-custom option {
+  background: var(--color-text);
+  color: #fff;
+}
+
+.contact-dark-theme .field {
+  margin-bottom: 1.75rem;
+}
+
+.btn-envoyez {
+  background: linear-gradient(90deg, var(--color-cyan) 0%, var(--color-purple) 100%);
+  border: none;
+  color: #fff;
+  padding: 12px 50px;
+  border-radius: 50px;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(170, 17, 221, 0.3);
+}
+
+.btn-envoyez:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(19, 212, 245, 0.4);
+}
+
+.btn-envoyez:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

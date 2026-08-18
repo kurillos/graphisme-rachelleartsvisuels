@@ -5,7 +5,7 @@ const creations = defineCollection({
   schema: ({ image }) => z.object({
     titre: z.string(),
     // Catégories utilisées pour les filtres de la galerie
-    categorie: z.enum(['identite-visuelle', 'logo', 'affiche', 'packaging', 'illustration', 'web']),
+    categorie: z.enum(['faire-part', 'logo-graphisme', 'mise-en-page', 'site-web']),
     client: z.string().optional(),
     date: z.coerce.date(),
     image: image(),
