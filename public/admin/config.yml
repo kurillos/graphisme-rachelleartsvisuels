@@ -4,8 +4,8 @@ backend:
   branch: main
   auth_endpoint: api/auth
 
-media_folder: "public/images"
-public_folder: "/images"
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
 
 collections:
   - name: "creations"
@@ -35,3 +35,5 @@ collections:
         default: "paysage"
       - { label: "Mettre en avant", name: "miseEnAvant", widget: "boolean", default: false }
       - { label: "Description (optionnelle)", name: "body", widget: "markdown", required: false }
+      - { label: "Galerie", name: "galerie", widget: list, field: { label: "Photo", name: "src", widget: image } }
+      - { label: "Tags", name: "tags", widget: list, default: [] }

@@ -5,10 +5,16 @@ const creations = (await getCollection('creations')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
-// Catégories générées automatiquement à partir des créations publiées —
-// ajouter une nouvelle catégorie (ici ou via Decap CMS) crée un nouveau
-// filtre sans toucher au code.
-const categories = [...new Set(creations.map((c) => c.data.categorie))];
+// Filtres générés automatiquement à partir des catégories ET des tags
+// réellement utilisés dans les créations publiées — ajouter une
+// catégorie ou un tag (ici ou via Decap CMS) crée un nouveau filtre
+// sans aucune intervention technique.
+const filtres = [
+  ...new Set([
+    ...creations.map((c) => c.data.categorie),
+    ...creations.flatMap((c) => c.data.tags ?? []),
+  ]),
+].sort();
 ---
 
 <div x-data={`{ filtre: 'tous' }`}>
@@ -20,33 +26,43 @@ const categories = [...new Set(creations.map((c) => c.data.categorie))];
     >
       Tout
     </button>
-    {categories.map((cat) => (
+    {filtres.map((f) => (
       <button
         type="button"
-        x-on:click={`filtre = ${JSON.stringify(cat)}`}
-        x-bind:data-active={`filtre === ${JSON.stringify(cat)}`}
+        x-on:click={`filtre = ${JSON.stringify(f)}`}
+        x-bind:data-active={`filtre === ${JSON.stringify(f)}`}
       >
-        {cat}
+        {f}
       </button>
     ))}
   </div>
 
   <div class="masonry">
-    {creations.map((item) => (
-      <figure
-        class="masonry-item"
-        x-bind:data-hidden={`filtre !== 'tous' && filtre !== ${JSON.stringify(item.data.categorie)}`}
-      >
-        <img
-          src={item.data.image}
-          alt={item.data.imageAlt}
-          loading="lazy"
-        />
-        <figcaption class="legend">
-          <span class="titre">{item.data.titre}</span>
-          {item.data.client && <span> — {item.data.client}</span>}
-        </figcaption>
-      </figure>
-    ))}
+    {creations.map((item) => {
+      // Une création est affichée si le filtre actif correspond à sa
+      // catégorie OU à l'un de ses tags.
+      const valeurs = [item.data.categorie, ...(item.data.tags ?? [])];
+      return (
+        <figure
+          class="masonry-item"
+          x-bind:data-hidden={`filtre !== 'tous' && !${JSON.stringify(valeurs)}.includes(filtre)`}
+        >
+          <img src={item.data.image} alt={item.data.imageAlt} loading="lazy" />
+
+          {item.data.galerie && item.data.galerie.length > 0 && (
+            <div class="galerie-complement">
+              {item.data.galerie.map((photo) => (
+                <img src={photo.src} alt="" loading="lazy" />
+              ))}
+            </div>
+          )}
+
+          <figcaption class="legend">
+            <span class="titre">{item.data.titre}</span>
+            {item.data.client && <span> — {item.data.client}</span>}
+          </figcaption>
+        </figure>
+      );
+    })}
   </div>
 </div>
